@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class BlogPage extends Component {
     constructor() {
@@ -10,7 +12,7 @@ class BlogPage extends Component {
             users: []
         }
     }
-    getUser = () =>{
+    getUser = () => {
         // fetch("http://localhost:5000/posts", {
         fetch("https://json-server-8i27.onrender.com/posts", {
             method: "GET"
@@ -20,8 +22,8 @@ class BlogPage extends Component {
             if (Array.isArray(dt)) {
                 this.setState({
                     users: dt,
-                    title : "",
-                    desc : ""
+                    title: "",
+                    desc: ""
                 })
             }
             // console.log(dt)
@@ -55,13 +57,31 @@ class BlogPage extends Component {
             }).then((response) => {
                 return response.json();
             }).then((result) => {
-                alert("Success");
+                toast.success('Blog Added successfully!', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    });
             }).catch((error) => {
                 console.log(error);
             })
         }
         else {
-            alert("blog already found");
+            toast.error('Blog Already Found!', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
         }
         this.getUser();
     }
@@ -107,7 +127,7 @@ class BlogPage extends Component {
 
 
                                                     <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                                        <input type="button" value="Submit" onClick={this.saveData} className="btn btn-primary btn-lg"/>
+                                                        <input type="button" value="Submit" onClick={this.saveData} className="btn btn-primary btn-lg" />
                                                     </div>
 
                                                 </form>
@@ -126,7 +146,18 @@ class BlogPage extends Component {
                         </div>
                     </div>
                 </section>
-
+                <ToastContainer
+                    position="top-center"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
             </>
         );
     }
